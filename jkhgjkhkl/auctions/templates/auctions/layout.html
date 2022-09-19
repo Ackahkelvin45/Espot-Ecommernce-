@@ -1,0 +1,129 @@
+{% load static %}
+
+<!DOCTYPE html >
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en">
+    <head>
+        <title>{% block title %}Auctions{% endblock %}</title>
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Tapestry&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'auctions/new.css'%}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="stylesheet" href="{% static 'auctions/responsive.css'%}">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+    </head>
+    <body >
+        <img src="{% static 'auctions/icons8-shopping-cart-96.png' %}"  alt="logo" width="30px" height="30px" id="logo">
+       <div  id="nav_bar"  >  <h1  id="auctionshead"><span id="E">E</span><span id="spot">Spot</span></h1>
+        {% if user.is_authenticated %}
+        <li  id="logout">
+            <a  class="nav_link"  href="{% url 'logout' %}">Log Out</a>
+        </li>
+    {% else %}
+        <li id="login">
+            <a class="nav_link" href="{% url 'login' %}">Log In</a>
+            <a  id="register"class="nav_link" href="{% url 'register' %}">Register</a>
+        </li>
+        <li >
+       
+        </li>
+        {% endif %}
+        <div id="message" >
+            {% if user.is_authenticated %}
+                Signed in as <strong>{{ user.username }}</strong>.
+            {% else %}
+                Not signed in.
+            {% endif %}
+        </div>
+    </div> 
+</div>
+        
+
+        <ul id="second_navbar">
+            <li >
+                
+                <a class="nav-link" href="{% url 'index'  %}">Active Listings</a>
+           
+            </li> 
+            {% if user.is_authenticated %}
+            <li >
+                <a class="nav-link" href="{% url 'closedauctionspage' %}">Closed Auctions</a>
+            </li>
+        {% else %}
+            <li></li>
+        {% endif %}
+           
+                {% if user.is_authenticated %}
+                <li >
+                    <a class="nav-link" href="{% url 'createnewlisting' %}">Create new Listing</a>
+                </li>
+            {% else %}
+                <li></li>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <li >
+                    <a class="nav-link" href="{% url 'watchlistpage' %}"> watchlist</a>
+                </li>
+            {% else %}
+                <li></li>
+
+            {% endif %}
+            {% if user.is_authenticated %}
+            
+                <form action="{% url 'category' %}"  method="post" id="category">
+                    {% csrf_token %}
+                    
+                    choose category: <select name="category" id="select">
+                        <option value="academic" >academic</option>
+            <option value="fashion">fashion</option>
+             <option value="groceries">groceries</option>
+             <option value="gadgets">gadgets</option>
+       
+                    </select>
+                    <input type="submit" value="search" class="button">
+                </form>
+            
+        {% else %}
+        {%endif%}
+    </div>
+        </ul>
+       
+    
+      
+        
+        {% block body %}
+        {% endblock %}
+        <br>
+        <div id="footer">
+            <div class="footeritem">
+                <ul class="ulfooter">
+                    <li><h3> Customer Support</h3></li>
+                    <li><span><a>Contact Us </a class="footertext"></span></li>
+                    <li><span><a>Help center</a class="footertext"></span ></li>
+                    
+                </ul>
+            </div>
+            <div class="footeritem">
+                <ul class="ulfooter">
+                    <li><h3>About</h3></li>
+                    <li><span><a>about Espot auction website</a></span></li>
+                    <li> <span><a>Careers</a class="footertext"></span></li>
+                    <li> <span><a>Advertise with Espot</a></span></li>
+                    
+                </ul>
+            </div class="footeritem">
+            <div>
+                <ul class="ulfooter">
+                    <li><h3>Services</h3></li>
+                    <li><span><a>Shopping</a ></span></li>
+                    <li> <span><a>Home dilevery</a> </span  ></li>
+                    
+                </ul>
+            </div>
+
+        </div>
+    </body>
+</html>

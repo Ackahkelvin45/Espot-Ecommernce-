@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html"%}
+{%block body%}
+{{message}}
+ <h3>{{winner}} </h3>
+ <h1 id="headerlisting">{{listing.name}}</h1>  
+ <hr>
+ <div  class="listingimage">
+ <img  alt="{{listing.name}} image" src="{{listing.imageurl.url}} " id="listingimage2" > </div> <hr id="hr">
+<div class="info" >
+ <span  class="listingprice">{{listing.bid.price}}$</span>
+ {{listing.decriptions}} <br> <br>
+
+{%if true%}
+{%else%}
+ {% if user.is_authenticated %}
+
+   <a href="{% url 'addtowatchlist' listing.id %}" class="addtowatchlist">Add to watchlist</a> <br>
+ <br>{% else %}
+  <a href="{% url 'login'%}">Sign in to add to watchlist </a>
+  {% endif %}
+  {% if user.is_authenticated %}
+  
+  <form action="{% url 'bidpage' listing.id %}" method="post" id="bidform">
+    {%csrf_token%}
+    Bid Price:<input type="text" name="bid" id="bidhere" placeholder="in dollars"> <br>  <br>
+<input  type="submit" value="BID" class="button" id="bidbutton">
+</form><br> <br>
+{%endif%}
+{% if owner %}
+<div id="closeitem">
+<a href="{% url 'closeauctionnow' listing.id %}"  class="button" id="closeauctionbutton">close auction</a>
+</div>
+{% endif %}
+
+</div>
+</div>
+<div class="commentside">
+<h2 class="commenthead">Comments</h2>
+{%for comment in comments%}
+  <div class="commenttext">{{comment.text }}</div> 
+  by : {{comment.writer.username}} <br><br>
+  {%empty%}
+  <h4>no comments</h4>
+  {%endfor%}
+  
+
+  {%endif%}
+</div>
+{%endblock%}
