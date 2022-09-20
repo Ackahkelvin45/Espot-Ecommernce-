@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html"%}
+{% block body%}
+<h1 class="h2">Watchlist</h1>
+<div class="listing">
+{%for watchlistitem in watchlist %}
+<div class="listingitem" ;>
+     <h2   style=" text-align: center ;margin-top: -25px;color: white;">{{watchlistitem.listing.name}}</h2> 
+<img  id="listingmedia"src="{{watchlistitem.listing.imageurl.url}}" alt="{{watchlistitem.listing.name}} image" height="200px" width="330px" style="margin-top:0px ;border: 1px rgb(17, 94, 17) solid;margin-left: -13px;"> <br>
+<div class="down" style="margin-top: 30px; padding-top: -10px;">
+{{watchlistitem.listing.bid.price}}$ <br> <br>
+<a  class="readmore" href="{% url 'listingpage' watchlistitem.listing.id %}" >Read more</a> 
+<div id="removefromwatchlist"  >
+    <span><a id="removeit" href="{% url 'removefromwatchlist' watchlistitem.id %}" 
+        onmouseover="this.style.backgroundColor='rgb(11, 61, 11)' ;this.style.borderColor='rgb(11, 61, 11)'" onMouseOut="this.style.backgroundColor='rgb(17, 94, 17)' ;this.style.borderColor='rgb(17, 94, 17)'"
+>Remove From Watchlist </a></span>
+
+
+</div>
+</div>
+</div>
+{%empty%}
+<h2></h2>
+<div class="listingitem2">
+  
+</div>
+{%endfor%}
+</div>
+{%endblock%}

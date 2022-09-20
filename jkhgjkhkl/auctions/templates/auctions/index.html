@@ -1,0 +1,40 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div id="index">
+    <h2 class="h2">Active Listings</h2> 
+    <hr>
+
+    <div class="listing">
+      
+    {% for list in listing %}
+    <div class="listingitem"  >
+    <h3 class="listname" style="margin-top: -25px;">{{list.name}}</h3>
+    <div class="imagespace" >
+    <img id="listingmedia" src="{{list.imageurl.url}}" alt="{{list.name}} image " height="200px" width="330px" style="margin-top:-25px ;border: 1px rgb(17, 94, 17) solid;margin-left: -15px;
+    "></div>
+      <br> <span >{{list.decription}}</span>
+     <div class="down"  >  
+    <span class="price"> {{list.bid.price}}$</span> <br> <br>
+
+     <a href="{% url 'listingpage' list.id %}" class="readmore" >Read more</a> <br>  <br>
+    </div>
+  
+     {% if user.is_authenticated %}
+     <form action="{% url 'addcomments' list.id %}" method="post" id="commentpost" >
+        {%csrf_token%}
+   <input type="text" name="comment" class="comment" placeholder="comment here "> <br> <br>
+       <input type="submit" value="comment" class="button" id="commentbutton">
+     </form>
+    {% endif %}
+  </div>
+  {%empty%}
+  <h2>No Active Listings</h2>
+  <div class="listingitem2">
+    
+  </div>
+    {%endfor%}
+  
+  </div>
+</div>
+{% endblock %}
